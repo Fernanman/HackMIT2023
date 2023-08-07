@@ -1,4 +1,5 @@
 # For more description with other attacks check out my BLOG ==> https://imparable.medium.com/attacking-json-web-tokens-jwts-d1d51a1e17cb
+# Code modified from https://gist.github.com/imparabl3/efcf4a991244b9f8f99ac39a7c8cfe6f
 
 import OpenSSL
 import base64
