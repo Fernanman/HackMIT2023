@@ -3,10 +3,8 @@ import random
 import string
 import timeit
 
-import numpy as np
-
 allowed_chars = string.ascii_lowercase + " "
-password_database = {"james": "subscribe to mcoding"}
+password_database = {"james": "test thing"}
 
 
 # Unless you have a very stable computer,
@@ -36,7 +34,8 @@ def random_str(size):
 
 def crack_length(user, max_len=32, verbose=False) -> int:
     trials = 2000
-    times = np.empty(max_len)
+    times = {}
+
     for i in range(max_len):
         i_time = timeit.repeat(stmt='check_password(user, x)',
                                setup=f'user={user!r};x=random_str({i!r})',
@@ -45,11 +44,11 @@ def crack_length(user, max_len=32, verbose=False) -> int:
                                repeat=10)
         times[i] = min(i_time)
 
-    if verbose:
-        most_likely_n = np.argsort(times)[::-1][:5]
-        print(most_likely_n, times[most_likely_n] / times[most_likely_n[0]])
+    # if verbose:
+    #     most_likely_n = np.argsort(times)[::-1][:5]
+    #     print(most_likely_n, times[most_likely_n] / times[most_likely_n[0]])
 
-    most_likely = int(np.argmax(times))
+    most_likely = sorted(times, key=times.get, reverse=True)[0]
     return most_likely
 
 
@@ -86,9 +85,9 @@ def main():
     user = "james"
     length = crack_length(user, verbose=True)
     print(f"using most likely length {length}")
-    # input("hit enter to continue...")
-    # password = crack_password(user, length, verbose=True)
-    # print(f"password cracked:'{password}'")
+    input("hit enter to continue...")
+    password = crack_password(user, length, verbose=True)
+    print(f"password cracked:'{password}'")
 
 
 if __name__ == '__main__':
