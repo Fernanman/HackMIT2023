@@ -1,13 +1,14 @@
-1. First, reading the javascript is extremely helpful to read the javascript. The javascript has 2 key points of info, there is /answers endpoint and there is Beaer Authentication.
-2. If you read the html, it mentions APIFlask, and if you look at the documentation, then you can see that it uses swagger UI. So doing https://hackscope.hackxgpt.com/docs shows all the availiable endpoints.
-3. You can generate a token if you go to Network in Chrome inspect elements and submitting your answers.
-If you decode the JWT using something like https://token.dev/, you can see all of the fields.
+1. First, reading the javascript is extremely helpful so be sure to skim through the js file. The javascript has 2 key points of info, there is /answers endpoint and there is Beaer Authentication.
+2. If you read the html, it mentions APIFlask, and if you look at the documentation, then you can see that it uses swagger UI. So going to https://hackscope.hackxgpt.com/docs shows all the availiable endpoints.
+3. You can generate a token if you go to Network in Chrome inspect elements and submitting your answers. You can view this token if you click on auth and copy the string after "Bearer." If you decode the JWT using something like https://token.dev/, you can see all of the fields.
 4. By trying to mess around with the different fields, you'll find that if you try to send an API request with something like Postman (what I used)
-that it'll say your signature isn't signed. However, it gies you a differnt error if you edit the JKU saying that the JKU prefix wasn't the same.
+that it'll say your signature isn't signed. However, it gives you a differnt error if you edit the JKU saying that the JKU prefix wasn't the same.
 5. Now, if you look at /docs, you'll see there is an endpoint /load/{URL}. If you try to access it, it says it cannot be used by external users.
 This hints you off that you can use the JKU to access load as it uses the local IP (127.0.0.1).
-6. So if you edit the JKU to http://127.0.0.1:4000/.well-known/jwks.json/../../load/{URL}, then you can load another JWKs file of your choosing.
+6. We know that we must keep the JKU prefix the same, but we want to access load. To do this, we can transverse the tree backwards by appending /../.. to the url, thus keeping
+the URL prefix the same and accessing load.
+7. So if you edit the JKU to http://127.0.0.1:4000/.well-known/jwks.json/../../load/{URL}, then you can load another JWKs file of your choosing.
 And since you have the public key, you can make your own private key to sign it. You can host the JKU on a server on your computer if you port forward
 or some file sharing site.
-7. I used a python script I found online to generate a JWT using my own public and private key and since it redirects to the file that we made, it's authenticated.
+8. I used a python script I found online to generate a JWT using my own public and private key and since it redirects to the file that we made, it's authenticated.
 Just make sure to change your sub to admin and then send an API requsest to /answers using your generated token to get the flag!
