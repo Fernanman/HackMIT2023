@@ -1,0 +1,6 @@
+I actually didn't solve this during the puzzle window, but instead kept thinking about the puzzle and completed it after.
+The two parts are puzzles, the first in 2 dimensions and the second in 10, which make the second considerably harder. Though
+after knowing that there are 10 dimensions, you know there are basically at most 20 possible moves that can be done (positive and negative
+for each axis). Knowing all the possible moves, it's pretty easy to just DFS the routes and find the last number.
+
+Kinda sad I didn't figure out the puzzle was in 10 dimensions, but oh well.
