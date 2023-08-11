@@ -331,10 +331,7 @@ class Xd:
                 self.move_map[int(num)] = placeholder[num]
             print("Loaded Movemap from file")
         else:
-            count = 1
             for num in self.readme_nums:
-                count += 1
-
                 possible_moves = []
 
                 coord = self.num_to_Xd(num)
